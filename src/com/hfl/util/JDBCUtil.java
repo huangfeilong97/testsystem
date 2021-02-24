@@ -1,6 +1,11 @@
 package com.hfl.util;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import java.sql.*;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * JDBC工具类
@@ -25,6 +30,57 @@ public class JDBCUtil {
 
         return conn;
     }
+    /**
+     * --------------------使用全局作用域对象封装连接数据库-------------------------
+     */
+    public static Connection getConnection(HttpServletRequest request) {
+        Connection conn= null;
+        //获取全局作用域对象
+        ServletContext application = request.getServletContext();
+        Map map=(Map)application.getAttribute("connection");
+        //获取数据库连接对象集合
+        Iterator it=map.keySet().iterator();
+        while (it.hasNext()){
+            Connection connection=(Connection) it.next();
+            boolean value=(boolean)map.get(connection);
+            if(value){//空闲
+                conn=connection;//获取数据库连接
+                map.put(connection,false);
+            }
+        }
+        return conn;
+    }
+
+    /**
+     *
+     * @param request 获取全局作用域对象
+     * @param stmt
+     * @param rs
+     */
+    public static void close(Connection conn,Statement stmt, ResultSet rs,HttpServletRequest request){
+        if(rs!=null){
+            try {
+                rs.close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+        if(stmt!=null){
+            try {
+                stmt.close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+
+        ServletContext application=request.getServletContext();
+        Map map =(Map)application.getAttribute("connection");
+        if(conn!=null){
+            map.put(conn,true);//数据库连接对象变空闲状态
+        }
+
+    }
+    //---------------------------使用全局作用域对象封装连接数据库------------------------
 
     /**
      * 关闭数据库

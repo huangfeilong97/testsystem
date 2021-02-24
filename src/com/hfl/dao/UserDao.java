@@ -4,9 +4,10 @@ import com.hfl.entity.User;
 import com.hfl.util.JDBCUtil;
 import jdk.nashorn.internal.scripts.JD;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class UserDao {
     Connection conn=null;
@@ -47,6 +48,7 @@ public class UserDao {
 
     /**
      * 用户插入方法
+     * //JDBC规范中，Connection创建与销毁最浪费时间
      * @return
      */
     public int insert(User user){
@@ -74,6 +76,42 @@ public class UserDao {
         } finally {
             //释放资源
             JDBCUtil.close(conn,ps,null);
+        }
+        return insert;
+
+    }
+
+    /**
+     * 用户插入方法(模拟数据库连接池)
+     * //JDBC规范中，Connection创建与销毁最浪费时间
+     * @return
+     */
+    public int insert(User user, HttpServletRequest request){
+        Connection conn=null;
+        PreparedStatement ps=null;
+        int insert=0;
+
+        try {
+            //获取数据库连接
+            conn=JDBCUtil.getConnection(request);
+            //获取预编译的数据库操作对象
+            String sql="insert into user(username,password,sex,email) values(?,?,?,?)";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1,user.getUsername());
+            ps.setString(2,user.getPassword());
+            ps.setString(3,user.getSex());
+            ps.setString(4,user.getEmail());
+            //执行sql语句
+            insert= ps.executeUpdate();
+
+            return insert;
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            //释放资源
+            JDBCUtil.close(conn,ps,null,request);
         }
         return insert;
 
@@ -118,7 +156,7 @@ public class UserDao {
 
     /**
      * 根据用户编号删除用户信息
-     * @param user
+     * @param 
      * @return
      */
     public int delete(String userId){
