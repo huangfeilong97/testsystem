@@ -3,7 +3,7 @@ package com.hfl.entity;
 import java.util.Objects;
 
 /**
- * 实体类
+ * 用户类
  */
 public class User {
     private Integer userId;
