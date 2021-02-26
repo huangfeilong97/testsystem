@@ -24,6 +24,30 @@
         <servlet-name>QuestionAddServlet</servlet-name>
         <servlet-class>com.hfl.controller.QuestionAddServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>QuestionFindServlet</servlet-name>
+        <servlet-class>com.hfl.controller.QuestionFindServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>QuestionDeleteServlet</servlet-name>
+        <servlet-class>com.hfl.controller.QuestionDeleteServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>QuestionFindByIdServlet</servlet-name>
+        <servlet-class>com.hfl.controller.QuestionFindByIdServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>QuestionUpdateServlet</servlet-name>
+        <servlet-class>com.hfl.controller.QuestionUpdateServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TestServlet</servlet-name>
+        <servlet-class>com.hfl.controller.TestServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ExamServlet</servlet-name>
+        <servlet-class>com.hfl.controller.ExamServlet</servlet-class>
+    </servlet>
 
     <!--    映射servlet   -->
     <servlet-mapping>
@@ -45,6 +69,30 @@
     <servlet-mapping>
         <servlet-name>QuestionAddServlet</servlet-name>
         <url-pattern>/question/add</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuestionFindServlet</servlet-name>
+        <url-pattern>/question/find</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuestionDeleteServlet</servlet-name>
+        <url-pattern>/question/delete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuestionFindByIdServlet</servlet-name>
+        <url-pattern>/question/findById</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuestionUpdateServlet</servlet-name>
+        <url-pattern>/question/update</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TestServlet</servlet-name>
+        <url-pattern>/question/test</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ExamServlet</servlet-name>
+        <url-pattern>/exam</url-pattern>
     </servlet-mapping>
 
     <!--    设置首页    -->

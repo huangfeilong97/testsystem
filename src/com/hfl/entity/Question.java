@@ -4,7 +4,7 @@ package com.hfl.entity;
  * 问题类
  */
 public class Question {
-    private Integer question;
+    private Integer questionId;
     private String title;
     private String optionA;
     private String optionB;
@@ -15,8 +15,8 @@ public class Question {
     public Question() {
     }
 
-    public Question(Integer question, String title, String optionA, String optionB, String optionC, String optionD, String answer) {
-        this.question = question;
+    public Question(Integer questionId, String title, String optionA, String optionB, String optionC, String optionD, String answer) {
+        this.questionId = questionId;
         this.title = title;
         this.optionA = optionA;
         this.optionB = optionB;
@@ -25,12 +25,12 @@ public class Question {
         this.answer = answer;
     }
 
-    public Integer getQuestion() {
-        return question;
+    public Integer getQuestionId() {
+        return questionId;
     }
 
-    public void setQuestion(Integer question) {
-        this.question = question;
+    public void setQuestionId(Integer questionId) {
+        this.questionId = questionId;
     }
 
     public String getTitle() {
@@ -84,7 +84,7 @@ public class Question {
     @Override
     public String toString() {
         return "Question{" +
-                "question=" + question +
+                "questionId=" + questionId +
                 ", title='" + title + '\'' +
                 ", optionA='" + optionA + '\'' +
                 ", optionB='" + optionB + '\'' +
